@@ -24,6 +24,8 @@ export class UserMainComponent implements OnInit{
 	ngOnInit(): void {
 		this.currentUser = this.storageService.getUser();
 		this.currentUser.roles = this.currentUser.authorities.map( (obj: { authority: any; }) => obj.authority );
+		console.log( this.currentUser )
+		this.loadRecentBookings();
 	}
 
 	openModal() {
@@ -31,6 +33,21 @@ export class UserMainComponent implements OnInit{
 	}
 	onCloseHandled() {
 		this.display = "none";
+	}
+
+	loadRecentBookings(){
+		this.bookingService.getBookingHistory().subscribe({
+			next: data => {
+				this.recentBookings = data;
+			},
+			error: err => {console.log(err)
+				if (err.error) {
+					console.log( JSON.parse(err.error).message );
+				} else {
+					console.log( "Error with status: " + err.status );
+				}
+			}
+		});
 	}
 
 	confirmBooking() {
@@ -53,4 +70,7 @@ export class UserMainComponent implements OnInit{
 		});		
 	}
 	
+	goToBooking( id: string ){
+		window.location.replace(`/booking/${id}`);
+	}
 }

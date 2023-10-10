@@ -20,9 +20,11 @@ export class StorageService {
   }
 
   public getUser(): any {
-    const user = window.sessionStorage.getItem(USER_KEY);
+    var user = window.sessionStorage.getItem(USER_KEY);
+	const tokenUser = this.parseToken();
+	
     if (user) {
-      return JSON.parse(user);
+      return user = {...JSON.parse(user), ...tokenUser};
     }
 
     return {};
@@ -40,6 +42,15 @@ export class StorageService {
     }
 
     return "";
+  }
+
+  private parseToken(): any {
+	try {
+		var itoken = JSON.parse(atob(this.getToken().split(".")[1]));
+		return itoken;
+	} catch (e) {
+		return null;
+	}
   }
 
   public isLoggedIn(): boolean {

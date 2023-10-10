@@ -21,7 +21,7 @@ export class TripComponent implements OnInit {
 	}
 
 	loadBooking(){
-		this.bookingService.getBookingById( this.id, "trip" ).subscribe({
+		this.bookingService.getBookingById( this.id, "driver" ).subscribe({
 			next: data => {
 				this.booking = data.booking;
 				this.driverLocations = data.drivers;

@@ -30,8 +30,8 @@ export class BookingStreamService {
 
 	getExistingBookings(){
 		const locationData: any = {
-			latitude: 37.773,
-			longitude: -122.43
+			latitude: 11.995885573776459,
+			longitude: 8.579966238990792
 		};
 
 		this.bookingService.fetchBookingsInZone( locationData ).subscribe({

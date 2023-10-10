@@ -11,11 +11,12 @@ import { BookingStreamService } from '../_services/booking-stream.service';
 export class DriverMainComponent implements OnInit{
 	currentUser: any;
 	bookings: any[] = [];
-	mytrips: any[]  = [];
+	recentBookings: any[]  = [];
 	constructor(private bookingStreamService: BookingStreamService, private bookingService: BookingService, private storageService: StorageService) { }
 
 	ngOnInit(): void {
 		this.currentUser = this.storageService.getUser();
+		console.log( this.currentUser )
 		this.currentUser.roles = this.currentUser.authorities.map( (obj: { authority: any; }) => obj.authority );		
 
 		this.bookingStreamService.dataModel.subscribe( p => {
@@ -25,6 +26,8 @@ export class DriverMainComponent implements OnInit{
 				this.bookings.push( p )
 			}
 		}); 
+
+		this.loadRecentBookings();
 	}
 
 	isIterable(obj: any) {
@@ -48,6 +51,21 @@ export class DriverMainComponent implements OnInit{
 		this.bookingService.updateBookingStatus( updateData ).subscribe({
 			next: data => {
 				this.goToBooking( id );
+			},
+			error: err => {console.log(err)
+				if (err.error) {
+					console.log( JSON.parse(err.error).message );
+				} else {
+					console.log( "Error with status: " + err.status );
+				}
+			}
+		});
+	}
+
+	loadRecentBookings(){
+		this.bookingService.getBookingHistory( "driver" ).subscribe({
+			next: data => {
+				this.recentBookings = data;
 			},
 			error: err => {console.log(err)
 				if (err.error) {

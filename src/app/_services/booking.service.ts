@@ -13,7 +13,7 @@ export class BookingService {
 		return this.http.post(API_URL + '', data, { responseType: 'json' });
 	}
 
-	getBookingById( id: string, mode: string = "booking" ): Observable<any> {
+	getBookingById( id: string, mode: string = "passenger" ): Observable<any> {
 		return this.http.get(API_URL + mode + "/" + id, { responseType: 'json' });
 	}
 
@@ -23,5 +23,9 @@ export class BookingService {
 
 	updateBookingStatus( data: any ): Observable<any> {
 		return this.http.put(API_URL + 'status', data, { responseType: 'json' });
+	}
+
+	getBookingHistory( mode: string = "passenger" ): Observable<any> {
+		return this.http.get(API_URL + mode + "/history", { responseType: 'json' });
 	}
 }
