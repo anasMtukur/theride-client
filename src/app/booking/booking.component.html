@@ -1,0 +1,156 @@
+<div class="row py-5 px-4">
+    <div class="col-xl-4 col-md-6 col-sm-10 mx-auto">
+
+        <!-- Profile widget -->
+        <div class="bg-white shadow rounded overflow-hidden">
+            <div class="px-4 pt-0 pb-4 bg-dark">
+                <div class="media align-items-end profile-header">
+                    <div class="profile mr-3">
+						<img src="https://bootstrapious.com/i/snippets/sn-profile/teacher.jpg" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+					</div>
+                    <div class="media-body mb-5 text-white">
+                        <h4 class="mt-0 mb-0">{{ booking?.passenger?.firstName }} {{ booking?.passenger?.lastName }}</h4>
+                        <p class="small mb-4"> <i class="fa fa-map-marker mr-2"></i>{{ booking?.passenger?.gender }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-light p-4 d-flex justify-content-end text-center">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item text-center">
+						<h5 class="font-weight-bold mb-0 d-block">5 Star</h5>
+						<small class="text-muted"> 
+							<i class="fa fa-star mr-1"></i>20 Ratings
+						</small>
+					</li>
+                </ul>
+            </div>
+
+            <div class="row pt-4 px-4">
+                <div class="col-md-12">
+					<div class="card mb-1">
+					  <div class="card-body">
+						<div class="row">
+						  <div class="col-sm-4">
+							<h6 class="mb-0">Pick Up</h6>
+						  </div>
+						  <div class="col-sm-8 text-secondary">
+							{{ pickup?.latitude }}, {{ pickup?.longitude }}
+						  </div>
+						</div>
+						<hr>
+						<div class="row">
+						  <div class="col-sm-4">
+							<h6 class="mb-0">Drop Off</h6>
+						  </div>
+						  <div class="col-sm-8 text-secondary">
+							{{ dropoff?.latitude }}, {{ dropoff?.longitude }}
+						  </div>
+						</div>
+						<hr>
+						<div class="row">
+						  <div class="col-sm-4">
+							<h6 class="mb-0">Type</h6>
+						  </div>
+						  <div class="col-sm-8 text-secondary">
+							{{ booking?.bookingType }}
+						  </div>
+						</div>
+						<hr>
+						<div class="row">
+						  <div class="col-sm-4">
+							<h6 class="mb-0">Status</h6>
+						  </div>
+						  <div class="col-sm-8 text-secondary">
+							{{ booking?.bookingStatus }}
+						  </div>
+						</div>
+						<hr>
+						<div class="row">
+						  <div class="col-sm-12 text-secondary">
+							{{ booking?.createdAt }}
+						  </div>
+						</div>
+						<hr>
+						<div class="row">
+						  <div class="col-sm-12">
+							<button *ngIf="booking?.bookingStatus === 'ASSIGNING_DRIVER'; else driverMessage " class="btn btn-danger btn-block" (click)="cancelBooking()">Cancel</button>
+							<ng-template #driverMessage>
+								<p class="text-center" *ngIf="booking?.bookingStatus === 'ACCEPTED'">Your driver is on the way to pick you up.</p>
+								<p class="text-center" *ngIf="booking?.bookingStatus === 'CAB_ARRIVED'">Your driver has arrived.</p>
+								<p class="text-center" *ngIf="booking?.bookingStatus === 'IN_RIDE'">Enjoy Your Ride.</p>
+								<p class="text-center" *ngIf="booking?.bookingStatus === 'COMPLETED'">Hope you enjoyed your trip. Remember to give your rating below.</p>
+							</ng-template>
+						  </div>
+						</div>
+					  </div>
+					</div>
+        		</div>
+        	</div>
+
+			<div class="row py-4 px-4">
+                <div class="col-md-12">
+					<div class="card mb-3">
+						<div class="card-header rounded">
+							Your Driver
+						</div>
+						<div class="card-body" *ngIf="booking?.driver; else waitingDriver">
+							<div class="media align-items-top">
+								<span style="background-image: url(https://bootdey.com/img/Content/avatar/avatar6.png)" class="avatar avatar-xl mr-3"></span>
+								<div class="media-body overflow-hidden">
+								  <h5 class="card-text mb-0">{{ booking?.driver?.firstName }} {{ booking?.driver?.lastName }}</h5>
+								  <p class="card-text text-uppercase text-muted">{{ booking?.driver?.gender }}</p>
+								  <p class="card-text">
+									{{ booking?.driver?.car?.brandAndModel }}
+									<br>
+									{{ booking?.driver?.car?.color }}
+								  </p>
+								</div>
+							</div>
+						</div>        
+						
+						<ng-template #waitingDriver>
+							<div class="card-body card-loading rounded">
+								<div class="loading d-flex justify-content-center align-items-center" style="min-width: 100%; min-height: 100px;">
+									<span><i></i><i></i></span>
+
+									<small>Please wait, we are finding a driver for you.</small><br />
+								</div>
+							</div>
+							<div class="card-body rounded">
+								<div class="my-google-map d-flex justify-content-center">
+									<google-map 
+										[zoom]="zoom"
+										[options]="options"
+										[center]="center"
+										[width]="520">
+										<map-marker 
+											*ngFor="let marker of markers" [position]="marker.position"
+											[options]="marker.options"
+											[title]="marker.title"
+											[label]="marker.label">
+										</map-marker>
+									</google-map>
+								</div>
+								<!-- <ul class="list-group">
+									<li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of driverLocations">
+									  {{ item.location?.geoHashZone }}
+									  <span class="badge badge-primary badge-pill">{{ item.distance }}</span>
+									</li>
+									<li class="list-group-item d-flex justify-content-between align-items-center">
+									  Dapibus ac facilisis in
+									  <span class="badge badge-primary badge-pill">2</span>
+									</li>
+									<li class="list-group-item d-flex justify-content-between align-items-center">
+									  Morbi leo risus
+									  <span class="badge badge-primary badge-pill">1</span>
+									</li>
+								</ul> -->
+							</div>
+						</ng-template>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
+</div>

@@ -1,0 +1,145 @@
+<div class="container">
+	<div class="row">
+		<div class="col-lg-10 col-xl-9 mx-auto">
+			<div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
+				<div class="card-img-left d-none d-md-flex">
+					<!-- Background image for card set in CSS! -->
+				</div>
+				<div class="card-body p-4 p-sm-5">
+					<h5 class="card-title text-center mb-5 fw-light fs-5">Register</h5>
+					<form
+						*ngIf="!isSuccessful"
+						name="form"
+						(ngSubmit)="f.form.valid && onSubmit()"
+						#f="ngForm"
+						autocomplete="off"
+						novalidate>
+
+					<div class="form-floating mb-3">
+						<input
+							type="text"
+							class="form-control"
+							name="firstName"
+							[(ngModel)]="form.firstName"
+							required
+							minlength="3"
+							maxlength="20"
+							#firstName="ngModel"
+							[ngClass]="{ 'is-invalid': f.submitted && firstName.errors }"
+						/>
+						<div class="invalid-feedback" *ngIf="firstName.errors && f.submitted">
+							<div *ngIf="firstName.errors['required']">Username is required</div>
+							<div *ngIf="firstName.errors['minlength']">
+							Username must be at least 3 characters
+							</div>
+							<div *ngIf="firstName.errors['maxlength']">
+							Username must be at most 20 characters
+							</div>
+						</div>
+						<label for="floatingInputUsername">First Name</label>
+					</div>
+
+					<div class="form-floating mb-3">
+						<input
+							type="text"
+							class="form-control"
+							name="lastName"
+							[(ngModel)]="form.lastName"
+							required
+							minlength="3"
+							maxlength="20"
+							#lastName="ngModel"
+							[ngClass]="{ 'is-invalid': f.submitted && lastName.errors }"
+						/>
+						<div class="invalid-feedback" *ngIf="lastName.errors && f.submitted">
+							<div *ngIf="lastName.errors['required']">Username is required</div>
+							<div *ngIf="lastName.errors['minlength']">
+							Username must be at least 3 characters
+							</div>
+							<div *ngIf="lastName.errors['maxlength']">
+							Username must be at most 20 characters
+							</div>
+						</div>
+						<label for="floatingInputUsername">Last Name</label>
+					</div>
+
+					<div class="form-floating mb-3">
+						<label for="email">Email</label>
+						<input
+							autocomplete="off"
+							type="email"
+							class="form-control"
+							name="email"
+							[(ngModel)]="form.email"
+							required
+							email
+							#email="ngModel"
+							[ngClass]="{ 'is-invalid': f.submitted && email.errors }"
+						/>
+						<div class="invalid-feedback" *ngIf="email.errors && f.submitted">
+							<div *ngIf="email.errors['required']">Email is required</div>
+							<div *ngIf="email.errors['email']">
+							Email must be a valid email address
+							</div>
+						</div>
+						<label for="floatingInputEmail">Email address</label>
+					</div>
+
+					<div class="form-floating mb-3">
+						<label for="email">Mobile No.</label>
+						<input
+							type="text"
+							class="form-control"
+							name="mobile"
+							[(ngModel)]="form.mobile"
+							required
+							#mobile="ngModel"
+							[ngClass]="{ 'is-invalid': f.submitted && mobile.errors }"
+						/>
+						<div class="invalid-feedback" *ngIf="mobile.errors && f.submitted">
+							<div *ngIf="mobile.errors['required']">Mobile No. is required</div>
+							
+						</div>
+						<label for="floatingInputEmail">Mobile No.</label>
+					</div>
+
+					<hr>
+
+					<div class="form-floating mb-3">
+						<input
+							autocomplete="off"
+							type="password"
+							class="form-control"
+							name="password"
+							[(ngModel)]="form.password"
+							required
+							minlength="6"
+							#password="ngModel"
+							[ngClass]="{ 'is-invalid': f.submitted && password.errors }"
+						/>
+						<div class="invalid-feedback" *ngIf="password.errors && f.submitted">
+							<div *ngIf="password.errors['required']">Password is required</div>
+							<div *ngIf="password.errors['minlength']">
+							Password must be at least 6 characters
+							</div>
+						</div>
+						<label for="floatingPassword">Password</label>
+					</div>
+
+					<!-- <div class="form-floating mb-3">
+						<input type="password" class="form-control" id="floatingPasswordConfirm" placeholder="Confirm Password">
+						<label for="floatingPasswordConfirm">Confirm Password</label>
+					</div> -->
+
+					<div class="d-grid mb-2">
+						<button class="btn btn-lg btn-primary btn-block btn-login fw-bold text-uppercase" type="submit">Register</button>
+					</div>
+
+					<a class="d-block text-center mt-2 small" href="/login">Have an account? Sign In</a>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

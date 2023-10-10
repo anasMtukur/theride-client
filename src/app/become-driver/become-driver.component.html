@@ -1,0 +1,260 @@
+<div class="row py-5 px-4">
+    <div class="col-xl-4 col-md-6 col-sm-10 mx-auto">
+
+        <!-- Profile widget -->
+        <div class="bg-white shadow rounded overflow-hidden">
+            <div class="px-4 pt-0 pb-4 bg-dark">
+				<div class="media align-items-end profile-header">
+					<div class="profile mr-3">
+						<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="..." width="130" class="rounded mb-2 img-thumbnail">
+					</div>
+					<div class="media-body mb-5 text-white">
+						<h4 class="mt-0 mb-0">Manuella Tarly</h4>
+						<p class="small mb-0"> <i class="fa fa-map-marker mr-2"></i>{{ currentUser.username }}</p>
+						<p class="small mb-4"> 
+							<i class="fa fa-user mr-2"></i>
+							<span><strong>Roles: </strong></span>
+							<span class="label label-warning" *ngFor="let role of currentUser.roles">
+								{{ role }}
+							</span></p>
+					</div>
+				</div>
+			</div>
+
+            <div class="bg-light p-4 d-flex justify-content-end text-center">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item text-center">
+						<h5 class="font-weight-bold mb-0 d-block">5 Star</h5>
+						<small class="text-muted"> 
+							<i class="fa fa-star mr-1"></i>20 Ratings
+						</small>
+					</li>
+                </ul>
+            </div>
+
+            <div class="py-4 px-4" >
+                <div class="d-flex align-items-center justify-content-center mb-3">
+                    <h5 class="mb-0 text-center">Register to join The Ride's fleet</h5>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 mb-2 pr-lg-1" *ngIf="!existingRequest; else awaitingRequest">
+						<form
+							*ngIf="!isSuccessful"
+							name="form"
+							(ngSubmit)="f.form.valid && onSubmit()"
+							#f="ngForm"
+							novalidate>
+
+							<div class="form-floating mb-3">
+								<input
+									type="text"
+									class="form-control"
+									name="licenseNumber"
+									[(ngModel)]="form.licenseNumber"
+									required
+									minlength="10"
+									maxlength="10"
+									#licenseNumber="ngModel"
+									[ngClass]="{ 'is-invalid': f.submitted && licenseNumber.errors }"
+								/>
+								<div class="invalid-feedback" *ngIf="licenseNumber.errors && f.submitted">
+									<div *ngIf="licenseNumber.errors['required']">License Number is required</div>
+									<div *ngIf="licenseNumber.errors['minlength']">
+										License Number must be at least 10 characters
+									</div>
+									<div *ngIf="licenseNumber.errors['maxlength']">
+										License Number must be at most 10 characters
+									</div>
+								</div>
+								<label for="floatingInputUsername">Your Driver's License Number</label>
+							</div>
+
+							<div class="form-floating mb-3">
+								<input
+									type="text"
+									class="form-control"
+									name="city"
+									[(ngModel)]="form.city"
+									required
+									#city="ngModel"
+									[ngClass]="{ 'is-invalid': f.submitted && city.errors }"
+								/>
+								<div class="invalid-feedback" *ngIf="city.errors && f.submitted">
+									<div *ngIf="city.errors['required']">City is required</div>
+								</div>
+								<label for="floatingInputEmail">City</label>
+							</div>
+
+							<div class="form-floating mb-3">
+								<input
+									type="text"
+									class="form-control"
+									name="gender"
+									[(ngModel)]="form.gender"
+									required
+									#gender="ngModel"
+									[ngClass]="{ 'is-invalid': f.submitted && gender.errors }"
+								/>
+								<div class="invalid-feedback" *ngIf="gender.errors && f.submitted">
+									<div *ngIf="gender.errors['required']">Gender is required</div>
+								</div>
+								<label for="floatingInputEmail">Gender</label>
+							</div>
+
+							<hr>
+
+							<div class="form-floating mb-3">
+								<input
+									type="text"
+									class="form-control"
+									name="carPlateNo"
+									[(ngModel)]="form.carPlateNo"
+									required
+									minlength="6"
+									#carPlateNo="ngModel"
+									[ngClass]="{ 'is-invalid': f.submitted && carPlateNo.errors }"
+								/>
+								<div class="invalid-feedback" *ngIf="carPlateNo.errors && f.submitted">
+									<div *ngIf="carPlateNo.errors['required']">Plate Number is required</div>
+									<div *ngIf="carPlateNo.errors['minlength']">
+										Plate Number must be at least 6 characters
+									</div>
+								</div>
+								<label for="floatingPassword">Plate Number</label>
+							</div>
+
+							<div class="form-floating mb-3">
+								<input
+									type="text"
+									class="form-control"
+									name="carBrand"
+									[(ngModel)]="form.carBrand"
+									required
+									#carBrand="ngModel"
+									[ngClass]="{ 'is-invalid': f.submitted && carBrand.errors }"
+								/>
+								<div class="invalid-feedback" *ngIf="carBrand.errors && f.submitted">
+									<div *ngIf="carBrand.errors['required']">Car Brand is required</div>
+								</div>
+								<label for="floatingPassword">Car Brand</label>
+							</div>
+
+							<div class="form-floating mb-3">
+								<input
+									type="text"
+									class="form-control"
+									name="carModel"
+									[(ngModel)]="form.carModel"
+									required
+									#carModel="ngModel"
+									[ngClass]="{ 'is-invalid': f.submitted && carModel.errors }"
+								/>
+								<div class="invalid-feedback" *ngIf="carModel.errors && f.submitted">
+									<div *ngIf="carModel.errors['required']">Car Model is required</div>
+								</div>
+								<label for="floatingPassword">Car Model</label>
+							</div>
+
+							<div class="form-floating mb-3">
+								<input
+									type="text"
+									class="form-control"
+									name="carColor"
+									[(ngModel)]="form.carColor"
+									required
+									#carColor="ngModel"
+									[ngClass]="{ 'is-invalid': f.submitted && carColor.errors }"
+								/>
+								<div class="invalid-feedback" *ngIf="carColor.errors && f.submitted">
+									<div *ngIf="carColor.errors['required']">Car Color is required</div>
+								</div>
+								<label for="floatingPassword">Car Color</label>
+							</div>
+
+							<div class="form-floating mb-3">
+								<input
+									type="text"
+									class="form-control"
+									name="carType"
+									[(ngModel)]="form.carType"
+									required
+									#carType="ngModel"
+									[ngClass]="{ 'is-invalid': f.submitted && carType.errors }"
+								/>
+								<div class="invalid-feedback" *ngIf="carType.errors && f.submitted">
+									<div *ngIf="carType.errors['required']">Car Type is required</div>
+									
+								</div>
+								<label for="floatingPassword">Car Type</label>
+							</div>
+
+							<!-- <div class="form-floating mb-3">
+								<input type="password" class="form-control" id="floatingPasswordConfirm" placeholder="Confirm Password">
+								<label for="floatingPasswordConfirm">Confirm Password</label>
+							</div> -->
+
+							<div class="d-grid mb-2">
+								<button class="btn btn-lg btn-primary btn-block btn-login fw-bold text-uppercase" type="submit">Become A Driver</button>
+							</div>
+
+						</form>
+
+					</div>
+                </div>
+                <div class="py-4">
+                    <h5 class="mb-3">Community Guidelines</h5>
+                    <div class="p-4 bg-light rounded shadow-sm">
+                        <p class="font-italic mb-0">
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+						</p>
+                        <ul class="list-inline small text-muted mt-3 mb-0 text-right">
+                            <li class="list-inline-item"><i class="fa fa-comment-o mr-2"></i>Read More</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End profile widget -->
+
+    </div>
+</div>
+
+<ng-template #awaitingRequest>
+	<div class="col-lg-12 mb-2 pr-lg-1">
+		<div class="card mb-3">
+			<div class="card-header rounded">
+				Your Onboarding Request
+			</div>
+			<div class="card-body">
+				<p class="mb-2">We've received your request to become a driver at The Ride, Please check below for our decision after careful vetting and consideration.</p>
+				
+				<h4 class="card-text mb-0">{{ existingRequest?.firstName }} {{ existingRequest?.lastName }}</h4>
+				<p class="card-text text-uppercase text-muted">{{ existingRequest?.licenseNumber }}</p>
+				
+				<h5 class="card-text mb-0">Car Details</h5>
+				<p class="card-text">
+					{{ existingRequest?.car?.brandAndModel }}
+					<br>
+					{{ existingRequest?.car?.plateNo }}
+					<br>
+					{{ existingRequest?.car?.color }}
+				</p>
+					
+			</div>
+			<div class="card-footer rounded">
+				<div class="row">
+					<div class="col-12">
+						<div class="alert alert-primary" role="alert" *ngIf=" existingRequest?.approvalStatus === 'PENDING' "> 
+							Your request is still pending.
+						</div>
+						<div class="alert alert-success" role="alert" *ngIf=" existingRequest?.approvalStatus === 'APPROVED' ">
+							This is a success alert—check it out!
+						</div>
+						<div class="alert alert-danger" role="alert" *ngIf=" existingRequest?.approvalStatus === 'REJECTED' ">
+							This is a danger alert—check it out!
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</ng-template>

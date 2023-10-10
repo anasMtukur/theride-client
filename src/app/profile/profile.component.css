@@ -1,0 +1,19 @@
+.container{
+	min-height: 70vh;
+	margin-top:30px;
+}
+
+.container .full-height{
+	min-height: 70vh;
+}
+
+.img-round {  
+	margin-bottom: 30px;
+	border-radius: 20%;
+}
+
+small {
+	display: block;
+	line-height: 1.428571429;
+	color: #999;
+}
