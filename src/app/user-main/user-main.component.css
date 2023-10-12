@@ -47,3 +47,12 @@
 }
 
 .modal{background: rgba(0,0,0, .5);}
+.my-google-map{
+	width: 100%;
+	overflow: hidden;
+}
+
+.map-container{
+	width: 100% !important;
+	overflow: hidden;
+}

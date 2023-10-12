@@ -65,6 +65,11 @@ export class DriverMainComponent implements OnInit{
 	loadRecentBookings(){
 		this.bookingService.getBookingHistory( "driver" ).subscribe({
 			next: data => {
+				data.forEach( (element: any) => {
+					
+					element.readable = element.points[1]?.address;
+					
+				});
 				this.recentBookings = data;
 			},
 			error: err => {console.log(err)

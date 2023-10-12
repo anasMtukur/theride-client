@@ -24,7 +24,6 @@ export class AppComponent {
     if (this.isLoggedIn) {
       const user = this.storageService.getUser();
       this.roles = user.authorities.map( (obj: { authority: any; }) => obj.authority );
-	  console.log(this.roles);
       this.showAdminBoard = this.roles.includes('ADMIN');
       this.showDriverBoard = this.roles.includes('DRIVER');
 

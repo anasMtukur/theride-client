@@ -30,12 +30,17 @@ export class BookingStreamService {
 
 	getExistingBookings(){
 		const locationData: any = {
-			latitude: 11.995885573776459,
-			longitude: 8.579966238990792
+			latitude: 11.995666751321636,
+			longitude: 8.579936027526855
 		};
 
 		this.bookingService.fetchBookingsInZone( locationData ).subscribe({
 			next: data => {
+				data.forEach( (element: any) => {
+					
+					element.readable = element.points[1]?.address;
+					
+				});
 				this.dataStore.data = data;
       			this._dataModel.next(Object.assign({}, this.dataStore).data);
 			},
@@ -64,7 +69,9 @@ export class BookingStreamService {
 			that.client.subscribe('/incoming-bookings', ( message:any ) => {
 				if(message.body) {
 					that.streamMessage = message.body;
-					that.dataStore.data = JSON.parse(that.streamMessage);
+					const newBooking = JSON.parse(that.streamMessage);
+					newBooking.readable = newBooking.points[1]?.address;
+					that.dataStore.data = newBooking;
 					that._dataModel.next(Object.assign({}, that.dataStore).data);
 				}
 			});

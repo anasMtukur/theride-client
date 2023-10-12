@@ -10,7 +10,7 @@
 					</div>
                     <div class="media-body mb-5 text-white">
                         <h4 class="mt-0 mb-0">{{ booking?.passenger?.firstName }} {{ booking?.passenger?.lastName }}</h4>
-                        <p class="small mb-4"> <i class="fa fa-map-marker mr-2"></i>{{ booking?.passenger?.gender }}</p>
+                        <p class="small mb-4"> <i class="fa fa-map-marker mr-2"></i>{{ dropoff?.address }}</p>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
 							<h6 class="mb-0">Pick Up</h6>
 						  </div>
 						  <div class="col-sm-8 text-secondary">
-							{{ pickup?.latitude }}, {{ pickup?.longitude }}
+							{{ pickup?.address }}
 						  </div>
 						</div>
 						<hr>
@@ -44,7 +44,7 @@
 							<h6 class="mb-0">Drop Off</h6>
 						  </div>
 						  <div class="col-sm-8 text-secondary">
-							{{ dropoff?.latitude }}, {{ dropoff?.longitude }}
+							{{ dropoff?.address }}
 						  </div>
 						</div>
 						<hr>
